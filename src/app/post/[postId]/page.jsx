@@ -3,6 +3,20 @@ import { CommentList } from "@/components/CommentList";
 import { Vote } from "@/components/Vote";
 import { db } from "@/db";
 
+export async function generateMetadata({ params }) {
+  const post = await db.query(`SELECT * FROM posts WHERE id=${params.postId}`);
+  const data = post.rows[0];
+  if (!data) {
+    throw new Error("Oh dear, this post does not exist!");
+  }
+
+  //I am returning a metadata object
+  return {
+    title: `Didit - ${data.title}`,
+    description: `${data.body}`,
+  };
+}
+
 export default async function SinglePostPage({ params }) {
   const postId = params.postId;
 

@@ -15,7 +15,9 @@ async function getExistingVote(userId, postId) {
 async function handleVote(userId, postId, newVote) {
   // Check if the user has already voted on this post
   if (!userId) {
-    throw new Error("Cannot vote without being logged in");
+    throw new Error(
+      "Sorry, you will need to be logged in if you would like to vote!"
+    );
   }
 
   const existingVote = await getExistingVote(userId, postId);
